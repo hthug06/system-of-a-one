@@ -1,5 +1,8 @@
 //! Rust client for the System One decision model API.
 //!
+//! > **Note:** This crate is functional for `/v1/systemone` decision requests,
+//! > but currently covers only a subset of the full API. Breaking changes may
+//! > occur before `1.0.0`.
 //! Build a [`SystemOneClient`], define a batch of named tasks with [`SystemOneQuestions`],
 //! and send a [`SystemOneRequest`] to evaluate a state in a single inference pass.
 //!
