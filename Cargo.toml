@@ -1,0 +1,28 @@
+[package]
+name = "system-of-a-one"
+version = "0.1.0"
+edition = "2024"
+authors = ["Hugo Cailliez <hugocailliez06@gmail.com>"]
+description = "A Rust client for the System One decision models."
+keywords = ["AI", "Jev", "TypeSafe", "SystemOne", "sdk"]
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+reqwest = { version = "0.13.5", default-features = false, features = ["json", "rustls"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+thiserror = "2.0.21"
+
+[lints.rust]
+missing_docs = "warn"
+missing_debug_implementations = "warn"
+rust_2018_idioms = { level = "warn", priority = -1 }
+unreachable_pub = "warn"
+
+[lints.rustdoc]
+broken_intra_doc_links = "deny"
+private_intra_doc_links = "warn"
+missing_crate_level_docs = "warn"
+invalid_codeblock_attributes = "warn"
+invalid_html_tags = "warn"
+bare_urls = "warn"
