@@ -2,10 +2,16 @@
 name = "system-of-a-one"
 version = "0.1.0"
 edition = "2024"
+rust-version = "1.91" # Use of floor_char_boundary(), introduced in 1.91
 authors = ["Hugo Cailliez <hugocailliez06@gmail.com>"]
 description = "A Rust client for the System One decision models."
+readme = "README.md"
+repository = "https://github.com/hthug06/system-of-a-one" # adapte l'URL exacte
+homepage = "https://github.com/hthug06/system-of-a-one"
+documentation = "https://docs.rs/system-of-a-one"
 keywords = ["AI", "Jev", "TypeSafe", "SystemOne", "sdk"]
 license = "MIT OR Apache-2.0"
+categories = ["api-bindings", "asynchronous"]
 
 [dependencies]
 reqwest = { version = "0.13.5", default-features = false, features = ["json", "rustls"] }
