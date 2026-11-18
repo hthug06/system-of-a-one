@@ -21,7 +21,7 @@ fn test_create_noul_request() {
         SystemOneTaskConfig::noul("Is this message about billing?"),
     );
 
-    let request: SystemOneRequest = SystemOneRequest::builder()
+    let request: SystemOneRequest<'_> = SystemOneRequest::builder()
         .model("jev-latest")
         .state(
             "I was charged twice for my subscription this month. Please refund the extra charge.",
@@ -65,7 +65,7 @@ fn test_create_noul_with_criteria_request() {
         ),
     );
 
-    let request: SystemOneRequest = SystemOneRequest::builder()
+    let request: SystemOneRequest<'_> = SystemOneRequest::builder()
         .model("jev-latest")
         .state(
             "I was charged twice for my subscription this month. Please refund the extra charge.",
@@ -111,7 +111,7 @@ fn test_create_choice_request() {
         ),
     );
 
-    let request: SystemOneRequest = SystemOneRequest::builder()
+    let request: SystemOneRequest<'_> = SystemOneRequest::builder()
         .model("jev-latest")
         .state(
             "I was charged twice for my subscription this month. Please refund the extra charge.",
@@ -157,7 +157,7 @@ fn test_create_score_request() {
         ),
     );
 
-    let request: SystemOneRequest = SystemOneRequest::builder()
+    let request: SystemOneRequest<'_> = SystemOneRequest::builder()
         .model("jev-latest")
         .state(
             "I was charged twice for my subscription this month. Please refund the extra charge.",

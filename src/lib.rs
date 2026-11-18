@@ -3,6 +3,7 @@
 //! > **Note:** This crate is functional for `/v1/systemone` decision requests,
 //! > but currently covers only a subset of the full API. Breaking changes may
 //! > occur before `1.0.0`.
+//!
 //! Build a [`SystemOneClient`], define a batch of named tasks with [`SystemOneQuestions`],
 //! and send a [`SystemOneRequest`] to evaluate a state in a single inference pass.
 //!
@@ -88,7 +89,7 @@ mod questions;
 mod request;
 mod task;
 
-pub use client::{SystemOneClient, builder::SystemOneClientBuilder};
+pub use client::{SystemOneClient, SystemOneClientBuilder};
 pub use decision::{SystemOneDecision, SystemOneResults, SystemOneUsage, TaskResult};
 pub use error::{SystemOneError, SystemOneResult};
 pub use questions::SystemOneQuestions;

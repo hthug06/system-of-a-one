@@ -3,14 +3,14 @@
 use reqwest::Client;
 use std::fmt::Debug;
 
-use crate::client::builder::SystemOneClientBuilder;
+pub use crate::client::builder::SystemOneClientBuilder;
 use crate::{
     decision::SystemOneDecision,
     error::{SystemOneError, SystemOneResult},
     request::SystemOneRequest,
 };
 
-pub mod builder;
+mod builder;
 
 /// Asynchronous HTTP client for interacting with a System One inference server.
 ///
