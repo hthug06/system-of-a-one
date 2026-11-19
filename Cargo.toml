@@ -11,6 +11,10 @@ documentation = "https://docs.rs/system-of-a-one"
 keywords = ["AI", "Jev", "TypeSafe", "SystemOne", "sdk"]
 license = "MIT OR Apache-2.0"
 categories = ["api-bindings", "asynchronous"]
+exclude = [
+    ".github/",
+    ".gitignore",
+]
 
 [dependencies]
 reqwest = { version = "0.13.5", default-features = false, features = ["json", "rustls"] }
