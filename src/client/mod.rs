@@ -23,8 +23,8 @@ mod builder;
 /// use std::time::Duration;
 /// use system_of_a_one::SystemOneClient;
 ///
-/// let client = SystemOneClient::builder()
-///     .base_url("http://localhost:8080".to_string())
+/// let client: SystemOneClient = SystemOneClient::builder()
+///     .api_url("http://localhost:8080".to_string())
 ///     .api_key("your-api-key".to_string()) // Optional
 ///     .timeout(Duration::from_secs(15)) // Optional (defaults to 10s)
 ///     .build()?;
@@ -32,15 +32,13 @@ mod builder;
 /// ```
 ///
 /// # Errors
-/// [`SystemOneClientBuilder::build`] returns an error if [`SystemOneClientBuilder::base_url`]
+/// [`SystemOneClientBuilder::build`] returns an error if [`SystemOneClientBuilder::api_url`]
 /// is not provided or if the underlying HTTP client fails to initialize.
 pub struct SystemOneClient {
     /// The reqwest client, used to send the request to the server
     http_client: Client,
-    /// The base url (ex: http://localhost:8080).
-    ///
-    /// The url is formatted in the builder
-    base_url: String,
+    /// The api url (ex: http://localhost:8080/v1/systemone).
+    api_url: String,
     api_key: Option<String>,
 }
 
@@ -50,7 +48,7 @@ impl SystemOneClient {
         SystemOneClientBuilder::default()
     }
 
-    /// Sends the request to the decision model via [`SystemOneClientBuilder::base_url`]`/v1/systemone`.
+    /// Sends the request to the decision model via [`SystemOneClientBuilder::api_url`]`/v1/systemone`.
     ///
     /// # Errors
     ///
@@ -58,7 +56,7 @@ impl SystemOneClient {
     /// - [`SystemOneError::ApiError`] if the server responds with a non-2xx status code.
     /// - [`SystemOneError::Decode`] if the response body cannot be deserialized into [`SystemOneDecision`].
     pub async fn decide(&self, req: &SystemOneRequest<'_>) -> SystemOneResult<SystemOneDecision> {
-        let mut builder: reqwest::RequestBuilder = self.http_client.post(&self.base_url).json(&req);
+        let mut builder: reqwest::RequestBuilder = self.http_client.post(&self.api_url).json(&req);
 
         if let Some(key) = &self.api_key {
             builder = builder.bearer_auth(key);
@@ -68,7 +66,7 @@ impl SystemOneClient {
         let status: reqwest::StatusCode = resp.status();
 
         if !resp.status().is_success() {
-            let message = read_error_body(resp, 2048).await;
+            let message: String = read_error_body(resp, 2048).await;
             return Err(SystemOneError::ApiError {
                 status: status.as_u16(),
                 message,
@@ -86,7 +84,7 @@ impl SystemOneClient {
 impl Debug for SystemOneClient {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("SystemOneClient")
-            .field("base_url", &self.base_url)
+            .field("api_url", &self.api_url)
             .field("http", &self.http_client)
             .finish()
     }
@@ -94,7 +92,7 @@ impl Debug for SystemOneClient {
 
 /// Avoid Having the whole request in memory in case of a malicious server
 async fn read_error_body(mut resp: reqwest::Response, max_bytes: usize) -> String {
-    let mut buf = Vec::with_capacity(max_bytes.min(2048));
+    let mut buf: Vec<u8> = Vec::with_capacity(max_bytes.min(2048));
 
     while buf.len() < max_bytes {
         match resp.chunk().await {
@@ -107,7 +105,7 @@ async fn read_error_body(mut resp: reqwest::Response, max_bytes: usize) -> Strin
         }
     }
 
-    let mut text = String::from_utf8_lossy(&buf).into_owned();
+    let mut text: String = String::from_utf8_lossy(&buf).into_owned();
     if buf.len() == max_bytes {
         text.push_str("... [truncated]");
     }

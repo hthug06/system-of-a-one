@@ -10,15 +10,15 @@ use crate::error::{SystemOneError, SystemOneResult};
 #[derive(Default)]
 pub struct SystemOneClientBuilder {
     /// The full url, where the API is (ex: `http://localhost:8080/v1/systemone`)
-    base_url: Option<String>,
+    api_url: Option<String>,
     api_key: Option<String>,
     timeout: Option<Duration>,
 }
 
 impl SystemOneClientBuilder {
-    /// Set the [`SystemOneClientBuilder::base_url`] and return the instance
-    pub fn base_url(mut self, base_url: String) -> Self {
-        self.base_url = Some(base_url);
+    /// Set the [`SystemOneClientBuilder::api_url`] and return the instance
+    pub fn api_url(mut self, api_url: String) -> Self {
+        self.api_url = Some(api_url);
         self
     }
 
@@ -37,28 +37,28 @@ impl SystemOneClientBuilder {
     /// Build a [`SystemOneClient`].
     ///
     /// # Errors
-    /// Returns an error if [`SystemOneClientBuilder::base_url`]
+    /// Returns an error if [`SystemOneClientBuilder::api_url`]
     /// is not provided or if the underlying HTTP client fails to initialize.
     pub fn build(self) -> SystemOneResult<SystemOneClient> {
-        let base_url = self
-            .base_url
-            .ok_or_else(|| SystemOneError::ClientConfig("base_url is required".into()))?;
+        let api_url: String = self
+            .api_url
+            .ok_or_else(|| SystemOneError::ClientConfig("api_url is required".into()))?;
 
-        let base = base_url.trim_end_matches('/');
+        let base: &str = api_url.trim_end_matches('/');
         if base.is_empty() {
             return Err(SystemOneError::ClientConfig(
-                "base_url cannot be empty".to_string(),
+                "api_url cannot be empty".to_string(),
             ));
         }
 
-        let http_client = Client::builder()
+        let http_client: Client = Client::builder()
             .timeout(self.timeout.unwrap_or(Duration::from_secs(10)))
             .tcp_nodelay(true)
             .build()?;
 
         Ok(SystemOneClient {
             http_client,
-            base_url: base.to_string(),
+            api_url: base.to_string(),
             api_key: self.api_key,
         })
     }
@@ -68,7 +68,7 @@ impl Debug for SystemOneClientBuilder {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         f.debug_tuple("SystemOneClientBuilder")
             .field(&self.timeout)
-            .field(&self.base_url)
+            .field(&self.api_url)
             .finish()
     }
 }

@@ -16,11 +16,10 @@
 //!
 //! #[tokio::main]
 //! async fn main() -> Result<(), Box<dyn std::error::Error>> {
-//!     println!("Hello, world!");
 //!
 //!    // Create the client
 //!    let client: SystemOneClient = SystemOneClient::builder()
-//!        .base_url("http://localhost:8080".to_string())
+//!        .api_url("http://localhost:8080/v1/systemone".to_string())
 //!        .build()?;
 //!    // Create the full request, with all questions in one variable
 //!    let request: SystemOneRequest = SystemOneRequest::builder()
@@ -78,7 +77,7 @@
 //! # Supported Task Types
 //!
 //! - **Noul** ([`SystemOneTaskConfig::noul`]): Evaluates a truth-value probability (`0.0` to `1.0`).
-//! - **Noul with criteria** ([`SystemOneTaskConfig::noul_with_criteria`]): Evaluates a truth-value probability (`0.0` to `1.0`), but with criteria to be more precise.
+//! - **Noul with criteria** ([`SystemOneTaskConfig::noul_with_criteria`]): Same as `noul`, but with criteria to be more precise.
 //! - **Choice** ([`SystemOneTaskConfig::choice`]): Classifies the input state into one of the provided labeled criteria.
 //! - **Score** ([`SystemOneTaskConfig::score`]): Produces a continuous regression score across ordered criteria.
 
