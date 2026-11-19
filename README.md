@@ -19,7 +19,7 @@ Add `system-of-a-one` and `tokio` to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-system-of-a-one = "0.1.0"
+system-of-a-one = "0.1.1"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 ```
 
