@@ -108,7 +108,7 @@ Each question in `SystemOneQuestions` maps a task identifier to a `SystemOneTask
 
 All fallible operations return `SystemOneResult<T>` (`Result<T, SystemOneError>`):
 
-- `SystemOneError::ClientConfig` — Invalid client builder parameters (ex: empty or malformed `base_url`).
+- `SystemOneError::ClientConfig` — Invalid client builder parameters (ex: empty or malformed `api_url`).
 - `SystemOneError::RequestConfig` — Missing required fields when building a `SystemOneRequest`.
 - `SystemOneError::Transport` — Underlying HTTP or network error from `reqwest`.
 - `SystemOneError::ApiError { status, message }` — Non-2xx HTTP response from the server (with truncated error body).
