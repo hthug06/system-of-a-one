@@ -1,6 +1,6 @@
 [package]
 name = "system-of-a-one"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 rust-version = "1.91" # Use of floor_char_boundary(), introduced in 1.91
 authors = ["Hugo Cailliez <hugocailliez06@gmail.com>"]
