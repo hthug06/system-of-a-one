@@ -7,7 +7,7 @@ use crate::{
     questions::SystemOneQuestions,
 };
 
-/// Payload sent to the decision model endpoint (via [`api_url`](`crate::SystemOneClient::api_url`)).
+/// Payload sent to the decision model endpoint via [`SystemOneClient::decide`](crate::SystemOneClient::decide).
 ///
 /// Constructed via [`SystemOneRequest::builder`].
 #[derive(Clone, Debug, Serialize)]
