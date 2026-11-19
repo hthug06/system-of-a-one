@@ -35,7 +35,7 @@ use system_of_a_one::{
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Configure the HTTP client
     let client = SystemOneClient::builder()
-        .base_url("http://localhost:8080/v1/systemone".to_string())
+        .api_url("http://localhost:8080/v1/systemone".to_string())
         .api_key("your-api-key".to_string()) // Optional
         .build()?;
 
